@@ -6,12 +6,17 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/appicon"
+        android:label="Pocket Book"
+        android:roundIcon="@drawable/appicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalApp"
         tools:targetApi="31">
+        <activity
+            android:name=".BookDetailActivity"
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".FavouritesActivity"
             android:exported="false" />

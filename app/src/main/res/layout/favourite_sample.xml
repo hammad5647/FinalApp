@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/lightcream"
+    android:id="@+id/favourite"
+    android:elevation="2dp"
+    android:layout_margin="5dp"
+    >
 
+    <ImageView
+        android:id="@+id/favbookImage"
+        android:layout_width="121dp"
+        android:layout_height="178dp"
+        android:src="@drawable/book1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="24dp" />
+
+    <TextView
+        android:id="@+id/favbookName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        android:text="Billion Dollar Enemy"
+        android:textColor="@color/brown"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/favbookImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/favbookAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        android:text="Book by Olivia Hayle"
+        android:textColor="@color/brown"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/favbookImage"
+        app:layout_constraintTop_toTopOf="@+id/favbookName" />
+
+    <TextView
+        android:id="@+id/favbookPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="16dp"
+        android:text="₹ 499"
+        android:textColor="@color/brown"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/favbookImage"
+        app:layout_constraintStart_toEndOf="@+id/favbookImage" />
+
+    <LinearLayout
+        android:id="@+id/removeBtn"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/button_design"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favbookAuthor"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

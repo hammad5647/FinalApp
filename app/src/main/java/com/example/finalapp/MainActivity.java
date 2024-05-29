@@ -6,25 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.finalapp.adapter.RecyclerBookAdapter;
 import com.example.finalapp.databinding.ActivityMainBinding;
+import com.example.finalapp.interfaces.BookInterface;
 import com.example.finalapp.models.BookModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
 
     List<BookModel> bookList = new ArrayList<>();
     ActivityMainBinding binding;
+    BookInterface bookInterface;
     List<BookModel> filterList = new ArrayList<>();
     public static List<BookModel> favouriteList = new ArrayList<>();
 
@@ -36,20 +35,35 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+        bookInterface = new BookInterface() {
+            @Override
+            public void onClick(BookModel b1, int position) {
+                Intent intent = new Intent(MainActivity.this, BookDetailActivity.class);
+                intent.putExtra("image", b1.bookimage);
+                intent.putExtra("name", b1.bookname);
+                intent.putExtra("author", b1.bookauthor);
+                intent.putExtra("price", b1.bookprice);
+
+                startActivity(intent);
+            }
+        };
 
 
-        bookList.add(new BookModel(R.drawable.book1,"Billion Dollar Enemy","Book by Olivia Hayle","₹ 499"));
-        bookList.add(new BookModel(R.drawable.book2,"Dirty Red","Book by Tarryn Fisher","₹ 599"));
-        bookList.add(new BookModel(R.drawable.book3,"The Pool Boy","Book by Nikki Sloane","₹ 449"));
-        bookList.add(new BookModel(R.drawable.book4,"Black Female","Book by Kim J. West","₹ 1049"));
-        bookList.add(new BookModel(R.drawable.book5,"Wild Island Love","Book by Melissa Foster","₹ 899"));
-        bookList.add(new BookModel(R.drawable.book6,"Her Billionaire Protector","Book by Sophia Summers","₹ 699"));
-        bookList.add(new BookModel(R.drawable.book7,"White Out","Book by Danielle Girard","₹ 349"));
-        bookList.add(new BookModel(R.drawable.book8,"Courting Perceptions","Book by Maria CrawFord","₹ 249"));
+        bookList.add(new BookModel(R.drawable.book1, "Billion Dollar Enemy", "Book by Olivia Hayle", "₹ 499"));
+        bookList.add(new BookModel(R.drawable.book2, "Dirty Red", "Book by Tarryn Fisher", "₹ 599"));
+        bookList.add(new BookModel(R.drawable.book3, "The Pool Boy", "Book by Nikki Sloane", "₹ 449"));
+        bookList.add(new BookModel(R.drawable.book4, "Black Female", "Book by Kim J. West", "₹ 1049"));
+        bookList.add(new BookModel(R.drawable.book5, "Wild Island Love", "Book by Melissa Foster", "₹ 899"));
+        bookList.add(new BookModel(R.drawable.book6, "Her Billionaire Protector", "Book by Sophia Summers", "₹ 699"));
+        bookList.add(new BookModel(R.drawable.book7, "White Out", "Book by Danielle Girard", "₹ 349"));
+        bookList.add(new BookModel(R.drawable.book8, "Courting Perceptions", "Book by Maria CrawFord", "₹ 249"));
 
-        RecyclerBookAdapter adapter = new RecyclerBookAdapter(bookList, this);
-
-        binding.recyclerBookView.setAdapter(adapter);
+        getOnBackPressedDispatcher().addCallback(MainActivity.this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                alertBox();
+            }
+        });
 
         binding.favouriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        RecyclerBookAdapter adapter = new RecyclerBookAdapter(bookList, this, bookInterface);
+        binding.recyclerBookView.setAdapter(adapter);
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -66,18 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList =bookList.stream().filter(a->a.bookname.toLowerCase().contains(newText.toLowerCase())).toList();
+                filterList = bookList.stream().filter(a -> a.bookname.toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList());
+                adapter.searchProduct(filterList);
                 return false;
             }
         });
-
-        getOnBackPressedDispatcher().addCallback(MainActivity.this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                alertBox();
-            }
-        });
     }
+
     void alertBox() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Exit");

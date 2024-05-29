@@ -9,10 +9,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.finalapp.adapter.RecyclerFavouriteAdapter;
 import com.example.finalapp.databinding.ActivityFavouritesBinding;
 
 public class FavouritesActivity extends AppCompatActivity {
-
     ActivityFavouritesBinding binding;
 
     @Override
@@ -28,5 +28,8 @@ public class FavouritesActivity extends AppCompatActivity {
                 finish();
             }
         });
+        RecyclerFavouriteAdapter adapter = new RecyclerFavouriteAdapter(MainActivity.favouriteList);
+
+        binding.favouriteRecycler.setAdapter(adapter);
     }
 }

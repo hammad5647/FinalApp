@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalapp.interfaces.BookInterface;
 import com.example.finalapp.R;
-import com.example.finalapp.databinding.ActivityMainBinding;
 import com.example.finalapp.databinding.BookSampleBinding;
 import com.example.finalapp.models.BookModel;
 
@@ -19,17 +19,18 @@ import java.util.List;
 public class RecyclerBookAdapter extends RecyclerView.Adapter<RecyclerBookAdapter.ViewHolder> {
 
     Context context;
-
+    BookInterface bookInterface;
     List<BookModel> BookModel = new ArrayList<>();
     List<BookModel> booklist;
 
-    public RecyclerBookAdapter( List<BookModel> booklist,Context context) {
+    public RecyclerBookAdapter(List<BookModel> booklist, Context context, BookInterface bookInterface) {
         this.context = context;
+        this.bookInterface = bookInterface;
         this.booklist = booklist;
     }
-    public void searchProduct(List<BookModel> filterlist)
-    {
-        BookModel = filterlist;
+
+    public void searchProduct(List<BookModel> filterlist) {
+        booklist = filterlist;
         notifyDataSetChanged();
     }
 
@@ -49,6 +50,12 @@ public class RecyclerBookAdapter extends RecyclerView.Adapter<RecyclerBookAdapte
         holder.binding.bookAuthor.setText(booklist.get(position).bookauthor);
         holder.binding.bookPrice.setText(booklist.get(position).bookprice);
 
+        holder.binding.book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookInterface.onClick(booklist.get(position),position);
+            }
+        });
     }
 
     @Override
@@ -58,6 +65,7 @@ public class RecyclerBookAdapter extends RecyclerView.Adapter<RecyclerBookAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         BookSampleBinding binding;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = BookSampleBinding.bind(itemView);

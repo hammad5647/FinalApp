@@ -1,4 +1,4 @@
-package com.example.finalapp;
+package com.example.finalapp.interfaces;
 
 import com.example.finalapp.models.BookModel;
 

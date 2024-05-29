@@ -6,6 +6,7 @@ public class BookModel {
     public String bookauthor;
     public String bookprice;
     public BookModel(int bookimage, String bookname, String bookauthor, String bookprice) {
+
         this.bookimage = bookimage;
         this.bookname = bookname;
         this.bookauthor = bookauthor;

@@ -3,15 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/lightcream"
+    android:elevation="2dp"
+    android:layout_margin="5dp"
+    android:id="@+id/book">
 
     <ImageView
         android:id="@+id/bookImage"
         android:layout_width="121dp"
         android:layout_height="178dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:src="@drawable/book1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,21 +57,21 @@
         app:layout_constraintTop_toBottomOf="@+id/bookAuthor" />
 
     <LinearLayout
-        android:id="@+id/addToFavBtn"
-        android:layout_width="150dp"
+        android:id="@+id/detailBtn"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_design"
         android:gravity="center"
-        app:layout_constraintStart_toEndOf="@+id/bookImage"
-        app:layout_constraintTop_toBottomOf="@+id/bookPrice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add To Favourites"
+            android:text="Details"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
